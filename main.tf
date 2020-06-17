@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "ses_user_policy" {
   count = var.enabled ? 1 : 0
 
   statement {
-    actions   = ["ses:SendRawEmail"]
+    actions   = var.iam_permissions
     resources = [join("", aws_ses_domain_identity.ses_domain.*.arn)]
   }
 }
