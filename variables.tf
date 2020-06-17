@@ -62,3 +62,8 @@ variable "verify_dkim" {
   default     = false
 }
 
+variable "iam_permissions" {
+  type        = list(string)
+  description = "Specifies permissions for the IAM user."
+  default     = ["ses:SendRawEmail"]
+}
