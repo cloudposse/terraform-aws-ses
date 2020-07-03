@@ -42,7 +42,7 @@
 
 [![Cloud Posse][logo]](https://cpco.io/homepage)
 
-# terraform-aws-ses [![Codefresh Build Status](https://g.codefresh.io/api/badges/pipeline/cloudposse/terraform-modules%2Fterraform-aws-ses?type=cf-1)](https://g.codefresh.io/public/accounts/cloudposse/pipelines/5ebae393e10f523310441203) [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ses.svg)](https://github.com/cloudposse/terraform-aws-ses/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-aws-ses [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ses.svg)](https://github.com/cloudposse/terraform-aws-ses/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 
 
 Terraform module to provision Simple Email Service on AWS.
