@@ -13,6 +13,12 @@ output "user_unique_id" {
   description = "The unique ID assigned by AWS."
 }
 
+output "user_secret" {
+  sensitive   = true
+  value       = module.ses_user.secret
+  description = "The IAM secret for usage with SES API. This will be written to the state file in plain text."
+}
+
 # https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
 output "smtp_password" {
   sensitive   = true

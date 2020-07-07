@@ -161,6 +161,7 @@ Available targets:
 | smtp\_user | The SMTP user which is access key ID. |
 | user\_arn | The ARN assigned by AWS for this user. |
 | user\_name | Normalized IAM user name. |
+| user\_secret | The IAM secret for usage with SES API. This will be written to the state file in plain text. |
 | user\_unique\_id | The unique ID assigned by AWS. |
 
 
