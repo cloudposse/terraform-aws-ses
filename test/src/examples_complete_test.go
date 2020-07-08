@@ -1,8 +1,8 @@
 package test
 
 import (
-	"testing"
 	"math/rand"
+	"testing"
 	"time"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -24,7 +24,7 @@ func RandStringRunes(n int) string {
 func TestExamplesComplete(t *testing.T) {
 	t.Parallel()
 
-	testName := "ses-test-"+RandStringRunes(10)
+	testName := "ses-test-" + RandStringRunes(10)
 
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
@@ -32,7 +32,7 @@ func TestExamplesComplete(t *testing.T) {
 		Upgrade:      true,
 		// Variables to pass to our Terraform code using -var-file options
 		VarFiles: []string{"fixtures.us-east-1.tfvars"},
-		Vars: map[string]interface{} {
+		Vars: map[string]interface{}{
 			"name": testName,
 		},
 	}
