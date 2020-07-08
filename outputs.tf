@@ -15,7 +15,7 @@ output "user_unique_id" {
 
 output "user_secret" {
   sensitive   = true
-  value       = module.ses_user.secret
+  value       = module.ses_user.secret_access_key
   description = "The IAM secret for usage with SES API. This will be written to the state file in plain text."
 }
 
