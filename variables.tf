@@ -50,15 +50,27 @@ variable "zone_id" {
   default     = ""
 }
 
-variable "verify_domain" {
+variable "verify_route53_domain" {
   type        = bool
   description = "If provided the module will create Route53 DNS records used for domain verification."
   default     = false
 }
 
-variable "verify_dkim" {
+variable "verify_cloudflare_domain" {
+  type        = bool
+  description = "If provided the module will create Cloudflare DNS records used for domain verification."
+  default     = false
+}
+
+variable "verify_route53_dkim" {
   type        = bool
   description = "If provided the module will create Route53 DNS records used for DKIM verification."
+  default     = false
+}
+
+variable "verify_cloudflare_dkim" {
+  type        = bool
+  description = "If provided the module will create Cloudflare DNS records used for DKIM verification."
   default     = false
 }
 
