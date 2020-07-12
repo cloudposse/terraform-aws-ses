@@ -37,6 +37,7 @@ resource "cloudflare_record" "amazonses_verification_record" {
   name    = "_amazonses.${var.domain}"
   value   = [join("", aws_ses_domain_identity.ses_domain.*.verification_token)]
   type    = "TXT"
+  ttl     = "600"
 }
 
 resource "aws_ses_domain_dkim" "ses_domain_dkim" {
@@ -61,6 +62,7 @@ resource "cloudflare_record" "amazonses_dkim_record" {
   zone_id = var.zone_id
   name    = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}._domainkey.${var.domain}"
   type    = "CNAME"
+  ttl     = "600"
   records = ["${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"]
 }
   
