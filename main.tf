@@ -20,18 +20,18 @@ resource "aws_ses_domain_identity" "ses_domain" {
   domain = var.domain
 }
 
-#resource "aws_route53_record" "amazonses_verification_record" {
-  #count = var.enabled && var.verify_domain ? 1 : 0
+resource "aws_route53_record" "amazonses_verification_record" {
+  count = var.enabled && var.verify_route53_domain ? 1 : 0
 
-  #zone_id = var.zone_id
-  #name    = "_amazonses.${var.domain}"
-  #type    = "TXT"
-  #ttl     = "600"
-  #records = [join("", aws_ses_domain_identity.ses_domain.*.verification_token)]
-#}
+  zone_id = var.zone_id
+  name    = "_amazonses.${var.domain}"
+  type    = "TXT"
+  ttl     = "600"
+  records = [join("", aws_ses_domain_identity.ses_domain.*.verification_token)]
+}
   
 resource "cloudflare_record" "amazonses_verification_record" {
-  count = var.enabled && var.verify_domain ? 1 : 0
+  count = var.enabled && var.verify_cloudflare_domain ? 1 : 0
   
   zone_id = var.zone_id
   name    = "_amazonses.${var.domain}"
@@ -46,18 +46,18 @@ resource "aws_ses_domain_dkim" "ses_domain_dkim" {
   domain = join("", aws_ses_domain_identity.ses_domain.*.domain)
 }
 
-#resource "aws_route53_record" "amazonses_dkim_record" {
-  #count = var.enabled && var.verify_dkim ? 3 : 0
+resource "aws_route53_record" "amazonses_dkim_record" {
+  count = var.enabled && var.verify_route53_dkim ? 3 : 0
 
-  #zone_id = var.zone_id
-  #name    = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}._domainkey.${var.domain}"
-  #type    = "CNAME"
-  #ttl     = "600"
-  #records = ["${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"]
-#}
+  zone_id = var.zone_id
+  name    = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}._domainkey.${var.domain}"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"]
+}
 
 resource "cloudflare_record" "amazonses_dkim_record" {
-  count = var.enabled && var.verify_dkim ? 3 : 0
+  count = var.enabled && var.verify_cloudflare_dkim ? 3 : 0
 
   zone_id = var.zone_id
   name = format(
