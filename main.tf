@@ -35,7 +35,7 @@ resource "cloudflare_record" "amazonses_verification_record" {
   
   zone_id = var.zone_id
   name    = "_amazonses.${var.domain}"
-  value   = aws_ses_domain_identity.ses_domain.*.verification_token
+  value   = aws_ses_domain_identity.ses_domain.0.verification_token
   type    = "TXT"
   ttl     = "600"
 }
