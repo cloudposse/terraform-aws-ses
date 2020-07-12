@@ -35,7 +35,7 @@ resource "cloudflare_record" "amazonses_verification_record" {
   
   zone_id = var.zone_id
   name    = "_amazonses.${var.domain}"
-  value   = [join("", aws_ses_domain_identity.ses_domain.*.verification_token)]
+  value   = aws_ses_domain_identity.ses_domain.verification_token
   type    = "TXT"
   ttl     = "600"
 }
@@ -60,12 +60,16 @@ resource "cloudflare_record" "amazonses_dkim_record" {
   count = var.enabled && var.verify_dkim ? 3 : 0
 
   zone_id = var.zone_id
-  name    = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}._domainkey.${var.domain}"
+  name = format(
+    "%s._domainkey.%s",
+    element(aws_ses_domain_dkim.main.dkim_tokens, count.index),
+    var.domain_name,
+  )
   type    = "CNAME"
   ttl     = "600"
-  value   = ["${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"]
+  value   = "${element(aws_ses_domain_dkim.ses_domain_dkim.dkim_tokens, count.index)}.dkim.amazonses.com"
 }
-  
+
 /*
 Create user with permissions to send emails from SES domain
 */
