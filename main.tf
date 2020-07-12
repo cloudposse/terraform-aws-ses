@@ -63,7 +63,7 @@ resource "cloudflare_record" "amazonses_dkim_record" {
   name = format(
     "%s._domainkey.%s",
     element(aws_ses_domain_dkim.main.dkim_tokens, count.index),
-    var.domain_name,
+    var.domain,
   )
   type    = "CNAME"
   ttl     = "600"
