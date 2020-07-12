@@ -11,7 +11,7 @@ module "label" {
 }
 
 /*
-Create SES domain identity and verify it with Cloudflare DNS records
+Create SES domain identity and verify it with Route 53 or Cloudflare DNS records
 */
 
 resource "aws_ses_domain_identity" "ses_domain" {
