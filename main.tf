@@ -67,7 +67,7 @@ resource "cloudflare_record" "amazonses_dkim_record" {
   )
   type    = "CNAME"
   ttl     = "600"
-  value   = "${element(aws_ses_domain_dkim.ses_domain_dkim.dkim_tokens, count.index)}.dkim.amazonses.com"
+  value   = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"
 }
 
 /*
