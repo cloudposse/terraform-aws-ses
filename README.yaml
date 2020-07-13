@@ -36,7 +36,7 @@ description: |-
 # How to use this project
 usage: |-
   This module creates a SES domain with IAM user that is able to send emails with it.
-  If module is provided with Route53 Zone ID it can also create verification DNS records for domain and DKIM.
+  If module is provided with Route53 Zone ID or Cloudfront Zone ID it can also create verification DNS records for domain and DKIM.
 
   For a complete example, see [examples/complete](examples/complete).
 
