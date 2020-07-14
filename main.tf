@@ -51,7 +51,7 @@ resource "aws_route53_record" "amazonses_dkim_record" {
 Create user with permissions to send emails from SES domain
 */
 module "ses_user" {
-  source = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=0.8.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.8.0"
 
   enabled   = var.enabled
   name      = module.label.name
