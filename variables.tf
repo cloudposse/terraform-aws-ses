@@ -62,6 +62,12 @@ variable "verify_cloudflare_domain" {
   default     = false
 }
 
+variable "verify_dnsimple_domain" {
+  type        = bool
+  description = "If provided the module will create DNSimple DNS records used for domain verification."
+  default     = false
+}
+
 variable "verify_route53_dkim" {
   type        = bool
   description = "If provided the module will create Route53 DNS records used for DKIM verification."
@@ -71,6 +77,12 @@ variable "verify_route53_dkim" {
 variable "verify_cloudflare_dkim" {
   type        = bool
   description = "If provided the module will create Cloudflare DNS records used for DKIM verification."
+  default     = false
+}
+
+variable "verify_dnsimple_dkim" {
+  type        = bool
+  description = "If provided the module will create DNSimple DNS records used for DKIM verification."
   default     = false
 }
 
