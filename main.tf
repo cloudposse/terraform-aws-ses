@@ -26,7 +26,7 @@ resource "aws_route53_record" "amazonses_verification_record" {
   zone_id = var.zone_id
   name    = "_amazonses.${var.domain}"
   type    = "TXT"
-  ttl     = "600"
+  ttl     = "60"
   records = [join("", aws_ses_domain_identity.ses_domain.*.verification_token)]
 }
   
@@ -37,17 +37,17 @@ resource "cloudflare_record" "amazonses_verification_record" {
   name    = "_amazonses.${var.domain}"
   value   = aws_ses_domain_identity.ses_domain.0.verification_token
   type    = "TXT"
-  ttl     = "600"
+  ttl     = "60"
 }
   
 resource "dnsimple_record" "amazonses_verification_record" {
   count = var.enabled && var.verify_dnsimple_domain ? 1 : 0
   
   domain  = var.domain
-  name    = "_amazonses.${var.domain}"
+  name    = "_amazonses."
   value   = aws_ses_domain_identity.ses_domain.0.verification_token
   type    = "TXT"
-  ttl     = "600"
+  ttl     = "60"
 }
 
 resource "aws_ses_domain_dkim" "ses_domain_dkim" {
@@ -62,7 +62,7 @@ resource "aws_route53_record" "amazonses_dkim_record" {
   zone_id = var.zone_id
   name    = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}._domainkey.${var.domain}"
   type    = "CNAME"
-  ttl     = "600"
+  ttl     = "60"
   records = ["${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"]
 }
 
@@ -76,7 +76,7 @@ resource "cloudflare_record" "amazonses_dkim_record" {
     var.domain,
   )
   type    = "CNAME"
-  ttl     = "600"
+  ttl     = "60"
   value   = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"
 }
   
@@ -90,7 +90,7 @@ resource "dnsimple_record" "amazonses_dkim_record" {
     var.domain,
   )
   type    = "CNAME"
-  ttl     = "600"
+  ttl     = "60"
   value   = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"
 }
 
