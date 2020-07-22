@@ -44,7 +44,7 @@ resource "dnsimple_record" "amazonses_verification_record" {
   count = var.enabled && var.verify_dnsimple_domain ? 1 : 0
   
   domain  = var.domain
-  name    = "_amazonses.${var.domain}"
+  name    = "_amazonses"
   value   = aws_ses_domain_identity.ses_domain.0.verification_token
   type    = "TXT"
   ttl     = "60"
