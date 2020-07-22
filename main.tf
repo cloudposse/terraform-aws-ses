@@ -85,8 +85,9 @@ resource "dnsimple_record" "amazonses_dkim_record" {
 
   domain = var.domain
   name = format(
-    "%s._domainkey.",
-    element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index), var.domain,
+    "%s._domainkey.%s",
+    element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index), 
+    var.domain,
   )
   type    = "CNAME"
   ttl     = "60"
