@@ -32,7 +32,7 @@ output "secret_access_key" {
 # https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
 output "ses_smtp_password" {
   sensitive   = true
-  value       = module.ses_user.ses_smtp_password
+  value       = module.ses_user.ses_smtp_password_v4
   description = "The SMTP password. This will be written to the state file in plain text."
 }
 
