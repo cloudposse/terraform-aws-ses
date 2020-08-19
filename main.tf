@@ -1,13 +1,13 @@
 module "label" {
-  source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
-
-  attributes = var.attributes
-  delimiter  = var.delimiter
-  enabled    = var.enabled
-  name       = var.name
-  namespace  = var.namespace
-  stage      = var.stage
-  tags       = var.tags
+  source      = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.17.0"
+  enabled     = var.enabled
+  namespace   = var.namespace
+  environment = var.environment
+  stage       = var.stage
+  name        = var.name
+  delimiter   = var.delimiter
+  attributes  = var.attributes
+  tags        = var.tags
 }
 
 /*
@@ -51,7 +51,7 @@ resource "aws_route53_record" "amazonses_dkim_record" {
 Create user with permissions to send emails from SES domain
 */
 module "ses_user" {
-  source = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.14.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.15.0"
 
   enabled   = var.enabled
   name      = module.label.name
