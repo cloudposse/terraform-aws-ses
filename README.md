@@ -75,19 +75,7 @@ For automated tests of the complete example using [bats](https://github.com/bats
 
 What's worth to note is that every AWS SES starts in Sandbox. Sending emails via it (emails not verified in AWS SES) is only allowed after support request.
 
-SES is avaialable in regions:
-- us-east-1
-- us-west-2
-- ap-south-1
-- ap-southeast-2
-- eu-west-1
-- eu-west-2
-- sa-east-1
-
-**Note:** This list might change in the future if AWS adds new regions to SES.
-
-
-
+SES availability in regions can be checked in [latest AWS General Reference](https://docs.aws.amazon.com/general/latest/gr/ses.html)
 
 
 
