@@ -26,3 +26,9 @@ variable "iam_permissions" {
   description = "Specifies permissions for the IAM user."
   default     = ["ses:SendRawEmail"]
 }
+
+variable "iam_resources_override" {
+  type        = list(string)
+  description = "Allows override of resources to which are granted 'iam_permissions' for the IAM user."
+  default     = []
+}

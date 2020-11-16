@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "ses_user_policy" {
 
   statement {
     actions   = var.iam_permissions
-    resources = [join("", aws_ses_domain_identity.ses_domain.*.arn)]
+    resources = length(var.iam_resources_override) > 0 ? var.iam_resources_override : [join("", aws_ses_domain_identity.ses_domain.*.arn)]
   }
 }
 
