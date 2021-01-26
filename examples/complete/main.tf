@@ -4,7 +4,7 @@ provider "aws" {
 
 module "vpc" {
   source  = "cloudposse/vpc/aws"
-  version = "0.17.0"
+  version = "0.18.1"
 
   cidr_block = "172.16.0.0/16"
 
@@ -16,6 +16,7 @@ resource "aws_route53_zone" "private_dns_zone" {
   vpc {
     vpc_id = module.vpc.vpc_id
   }
+  tags = module.this.tags
 }
 
 module "ses" {
