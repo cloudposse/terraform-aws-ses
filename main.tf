@@ -41,7 +41,7 @@ Create user with permissions to send emails from SES domain
 module "ses_user" {
   source  = "cloudposse/iam-system-user/aws"
   version = "0.20.2"
-  enabled = var.enable_ses_user
+  enabled = var.ses_user_enabled
 
   context = module.this.context
 }
