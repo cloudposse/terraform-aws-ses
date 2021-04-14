@@ -26,3 +26,9 @@ variable "iam_permissions" {
   description = "Specifies permissions for the IAM user."
   default     = ["ses:SendRawEmail"]
 }
+
+variable "enable_ses_user" {
+  type        = bool
+  description = "Creates user with permission to send emails from SES domain"
+  default     = true
+}
