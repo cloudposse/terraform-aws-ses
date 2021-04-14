@@ -47,7 +47,7 @@ module "ses_user" {
 }
 
 data "aws_iam_policy_document" "ses_user_policy" {
-  count = var.enable_ses_user ? 1 : 0
+  count = var.ses_user_enabled ? 1 : 0
 
   statement {
     actions   = var.iam_permissions
