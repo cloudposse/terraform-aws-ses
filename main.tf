@@ -41,12 +41,13 @@ Create user with permissions to send emails from SES domain
 module "ses_user" {
   source  = "cloudposse/iam-system-user/aws"
   version = "0.20.2"
+  enabled = var.ses_user_enabled
 
   context = module.this.context
 }
 
 data "aws_iam_policy_document" "ses_user_policy" {
-  count = module.this.enabled ? 1 : 0
+  count = var.ses_user_enabled ? 1 : 0
 
   statement {
     actions   = var.iam_permissions
@@ -56,7 +57,7 @@ data "aws_iam_policy_document" "ses_user_policy" {
 
 resource "aws_iam_user_policy" "sending_emails" {
   #bridgecrew:skip=BC_AWS_IAM_16:Skipping `Ensure IAM policies are attached only to groups or roles` check because this module intentionally attaches IAM policy directly to a user.
-  count = module.this.enabled ? 1 : 0
+  count = var.ses_user_enabled ? 1 : 0
 
   name   = module.this.id
   policy = join("", data.aws_iam_policy_document.ses_user_policy.*.json)
