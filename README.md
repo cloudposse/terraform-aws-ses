@@ -1,3 +1,4 @@
+
 <!-- markdownlint-disable -->
 # terraform-aws-ses [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-aws-ses.svg)](https://github.com/cloudposse/terraform-aws-ses/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
@@ -29,7 +30,6 @@
 
 Terraform module to provision Simple Email Service on AWS.
 
-
 ---
 
 This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
@@ -54,7 +54,6 @@ It's 100% Open Source and licensed under the [APACHE2](LICENSE).
 
 
 We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
-
 
 
 
@@ -147,12 +146,15 @@ Available targets:
 
 | Name | Type |
 |------|------|
+| [aws_iam_group.ses_users](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group) | resource |
+| [aws_iam_group_policy.ses_group_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_group_policy) | resource |
+| [aws_iam_user_group_membership.ses_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_group_membership) | resource |
 | [aws_iam_user_policy.sending_emails](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy) | resource |
 | [aws_route53_record.amazonses_dkim_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.amazonses_verification_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_ses_domain_dkim.ses_domain_dkim](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_dkim) | resource |
 | [aws_ses_domain_identity.ses_domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_identity) | resource |
-| [aws_iam_policy_document.ses_user_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.ses_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -173,6 +175,9 @@ Available targets:
 | <a name="input_name"></a> [name](#input\_name) | Solution name, e.g. 'app' or 'jenkins' | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | <a name="input_regex_replace_chars"></a> [regex\_replace\_chars](#input\_regex\_replace\_chars) | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
+| <a name="input_ses_group_enabled"></a> [ses\_group\_enabled](#input\_ses\_group\_enabled) | Creates a group with permission to send emails from SES domain | `bool` | `true` | no |
+| <a name="input_ses_group_name"></a> [ses\_group\_name](#input\_ses\_group\_name) | The name of the group to create | `string` | `"SESSenders"` | no |
+| <a name="input_ses_group_path"></a> [ses\_group\_path](#input\_ses\_group\_path) | The IAM Path of the group to create | `string` | `"/"` | no |
 | <a name="input_ses_user_enabled"></a> [ses\_user\_enabled](#input\_ses\_user\_enabled) | Creates user with permission to send emails from SES domain | `bool` | `true` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
@@ -193,6 +198,7 @@ Available targets:
 | <a name="output_user_name"></a> [user\_name](#output\_user\_name) | Normalized IAM user name. |
 | <a name="output_user_unique_id"></a> [user\_unique\_id](#output\_user\_unique\_id) | The unique ID assigned by AWS. |
 <!-- markdownlint-restore -->
+
 
 
 

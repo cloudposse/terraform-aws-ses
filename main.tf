@@ -35,18 +35,15 @@ resource "aws_route53_record" "amazonses_dkim_record" {
 }
 
 
-/*
-Create user with permissions to send emails from SES domain
-*/
-module "ses_user" {
-  source  = "cloudposse/iam-system-user/aws"
-  version = "0.20.2"
-  enabled = (module.this.enabled && var.ses_user_enabled)
-
-  context = module.this.context
+#-----------------------------------------------------------------------------------------------------------------------
+# OPTIONALLY CREATE A USER AND GROUP WITH PERMISSIONS TO SEND EMAILS FROM SES domain
+#-----------------------------------------------------------------------------------------------------------------------
+locals {
+  create_group_enabled = module.this.enabled && var.ses_group_enabled
+  create_user_enabled  = module.this.enabled && var.ses_user_enabled
 }
 
-data "aws_iam_policy_document" "ses_user_policy" {
+data "aws_iam_policy_document" "ses_policy" {
   count = (module.this.enabled && var.ses_user_enabled) ? 1 : 0
 
   statement {
@@ -55,11 +52,46 @@ data "aws_iam_policy_document" "ses_user_policy" {
   }
 }
 
+resource "aws_iam_group" "ses_users" {
+  count = local.create_group_enabled ? 1 : 0
+
+  name = var.ses_group_name
+  path = var.ses_group_path
+}
+
+resource "aws_iam_group_policy" "ses_group_policy" {
+  count = local.create_group_enabled ? 1 : 0
+
+  name  = module.this.id
+  group = aws_iam_group.ses_users[0].name
+
+  policy = join("", data.aws_iam_policy_document.ses_policy.*.json)
+}
+
+resource "aws_iam_user_group_membership" "ses_user" {
+  count = local.create_group_enabled && local.create_user_enabled ? 1 : 0
+
+  user = module.ses_user.user_name
+
+  groups = [
+    aws_iam_group.ses_users[0].name
+  ]
+}
+
+module "ses_user" {
+  source  = "cloudposse/iam-system-user/aws"
+  version = "0.20.2"
+  enabled = local.create_user_enabled
+
+  context = module.this.context
+}
+
+
 resource "aws_iam_user_policy" "sending_emails" {
   #bridgecrew:skip=BC_AWS_IAM_16:Skipping `Ensure IAM policies are attached only to groups or roles` check because this module intentionally attaches IAM policy directly to a user.
-  count = (module.this.enabled && var.ses_user_enabled) ? 1 : 0
+  count = local.create_user_enabled && ! local.create_group_enabled ? 1 : 0
 
   name   = module.this.id
-  policy = join("", data.aws_iam_policy_document.ses_user_policy.*.json)
+  policy = join("", data.aws_iam_policy_document.ses_policy.*.json)
   user   = module.ses_user.user_name
 }
