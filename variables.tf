@@ -27,6 +27,24 @@ variable "iam_permissions" {
   default     = ["ses:SendRawEmail"]
 }
 
+variable "ses_group_enabled" {
+  type        = bool
+  description = "Creates a group with permission to send emails from SES domain"
+  default     = true
+}
+
+variable "ses_group_name" {
+  type        = string
+  description = "The name of the group to create"
+  default     = "SESSenders"
+}
+
+variable "ses_group_path" {
+  type        = string
+  description = "The IAM Path of the group to create"
+  default     = "/"
+}
+
 variable "ses_user_enabled" {
   type        = bool
   description = "Creates user with permission to send emails from SES domain"
