@@ -41,6 +41,8 @@ resource "aws_route53_record" "amazonses_dkim_record" {
 locals {
   create_group_enabled = module.this.enabled && var.ses_group_enabled
   create_user_enabled  = module.this.enabled && var.ses_user_enabled
+
+  ses_group_name = coalesce(var.ses_group_name, module.this.id)
 }
 
 data "aws_iam_policy_document" "ses_policy" {
@@ -55,7 +57,7 @@ data "aws_iam_policy_document" "ses_policy" {
 resource "aws_iam_group" "ses_users" {
   count = local.create_group_enabled ? 1 : 0
 
-  name = var.ses_group_name
+  name = local.ses_group_name
   path = var.ses_group_path
 }
 

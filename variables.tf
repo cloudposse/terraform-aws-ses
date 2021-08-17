@@ -35,8 +35,8 @@ variable "ses_group_enabled" {
 
 variable "ses_group_name" {
   type        = string
-  description = "The name of the group to create"
-  default     = "SESSenders"
+  description = "The name of the IAM group to create. If empty the module will calculate name from a context (recommended)."
+  default     = ""
 }
 
 variable "ses_group_path" {
