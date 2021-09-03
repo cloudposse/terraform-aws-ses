@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "ses_policy" {
 
   statement {
     actions   = var.iam_permissions
-    resources = [join("", aws_ses_domain_identity.ses_domain.*.arn)]
+    resources = concat(aws_ses_domain_identity.ses_domain.*.arn, var.iam_allowed_resources)
   }
 }
 

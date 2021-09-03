@@ -27,6 +27,12 @@ variable "iam_permissions" {
   default     = ["ses:SendRawEmail"]
 }
 
+variable "iam_allowed_resources" {
+  type        = list(string)
+  description = "Specifies resource ARNs that are enabled for iam_permissions above. Wildcards are acceptable."
+  default     = []
+}
+
 variable "ses_group_enabled" {
   type        = bool
   description = "Creates a group with permission to send emails from SES domain"
