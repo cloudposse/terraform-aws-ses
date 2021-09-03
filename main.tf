@@ -42,7 +42,7 @@ locals {
   create_group_enabled = module.this.enabled && var.ses_group_enabled
   create_user_enabled  = module.this.enabled && var.ses_user_enabled
 
-  ses_group_name = try(coalesce(var.ses_group_name, module.this.id), null)
+  ses_group_name = local.create_group_enabled ? coalesce(var.ses_group_name, module.this.id) : null
 }
 
 data "aws_iam_policy_document" "ses_policy" {
