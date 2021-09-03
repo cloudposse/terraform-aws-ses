@@ -29,7 +29,7 @@ variable "iam_permissions" {
 
 variable "iam_allowed_resources" {
   type        = list(string)
-  description = "Specifies resource ARNs that are enabled for iam_permissions above. Wildcards are acceptable."
+  description = "Specifies resource ARNs that are enabled for var.iam_permissions. Wildcards are acceptable."
   default     = []
 }
 
