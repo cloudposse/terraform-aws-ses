@@ -28,6 +28,11 @@ output "user_unique_id" {
   description = "The unique ID assigned by AWS."
 }
 
+output "ses_group_name" {
+  value       = local.ses_group_name
+  description = "The (calculated) name of the IAM Group."
+}
+
 output "secret_access_key" {
   sensitive   = true
   value       = module.ses_user.secret_access_key
