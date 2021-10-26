@@ -30,7 +30,7 @@ output "user_unique_id" {
 
 output "ses_group_name" {
   value       = local.ses_group_name
-  description = "The (calculated) name of the IAM Group."
+  description = "The IAM group name"
 }
 
 output "secret_access_key" {
