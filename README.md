@@ -198,7 +198,7 @@ Available targets:
 | <a name="output_ses_dkim_tokens"></a> [ses\_dkim\_tokens](#output\_ses\_dkim\_tokens) | A list of DKIM Tokens which, when added to the DNS Domain as CNAME records, allows for receivers to verify that emails were indeed authorized by the domain owner. |
 | <a name="output_ses_domain_identity_arn"></a> [ses\_domain\_identity\_arn](#output\_ses\_domain\_identity\_arn) | The ARN of the SES domain identity |
 | <a name="output_ses_domain_identity_verification_token"></a> [ses\_domain\_identity\_verification\_token](#output\_ses\_domain\_identity\_verification\_token) | A code which when added to the domain as a TXT record will signal to SES that the owner of the domain has authorised SES to act on their behalf. The domain identity will be in state 'verification pending' until this is done. See below for an example of how this might be achieved when the domain is hosted in Route 53 and managed by Terraform. Find out more about verifying domains in Amazon SES in the AWS SES docs. |
-| <a name="output_ses_group_name"></a> [ses\_group\_name](#output\_ses\_group\_name) | The (calculated) name of the IAM Group. |
+| <a name="output_ses_group_name"></a> [ses\_group\_name](#output\_ses\_group\_name) | The IAM group name |
 | <a name="output_ses_smtp_password"></a> [ses\_smtp\_password](#output\_ses\_smtp\_password) | The SMTP password. This will be written to the state file in plain text. |
 | <a name="output_user_arn"></a> [user\_arn](#output\_user\_arn) | The ARN assigned by AWS for this user. |
 | <a name="output_user_name"></a> [user\_name](#output\_user\_name) | Normalized IAM user name. |
