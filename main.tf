@@ -82,7 +82,7 @@ resource "aws_iam_user_group_membership" "ses_user" {
 
 module "ses_user" {
   source  = "cloudposse/iam-system-user/aws"
-  version = "0.22.4"
+  version = "0.22.5"
   enabled = local.create_user_enabled
 
   context = module.this.context
