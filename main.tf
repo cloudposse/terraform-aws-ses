@@ -1,15 +1,24 @@
-/*
-Create SES domain identity and verify it with Route53 DNS records
-*/
+#-----------------------------------------------------------------------------------------------------------------------
+# OPTIONALLY CREATE A USER AND GROUP WITH PERMISSIONS TO SEND EMAILS FROM SES domain
+#-----------------------------------------------------------------------------------------------------------------------
+locals {
+  enabled = module.this.enabled
 
+  create_group_enabled = local.enabled && var.ses_group_enabled
+  create_user_enabled  = local.enabled && var.ses_user_enabled
+
+  ses_group_name = local.create_group_enabled ? coalesce(var.ses_group_name, module.this.id) : null
+}
+
+# Create SES domain identity and verify it with Route53 DNS records
 resource "aws_ses_domain_identity" "ses_domain" {
-  count = module.this.enabled ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   domain = var.domain
 }
 
 resource "aws_route53_record" "amazonses_verification_record" {
-  count = module.this.enabled && var.verify_domain ? 1 : 0
+  count = local.enabled && var.verify_domain ? 1 : 0
 
   zone_id = var.zone_id
   name    = "_amazonses.${var.domain}"
@@ -19,13 +28,13 @@ resource "aws_route53_record" "amazonses_verification_record" {
 }
 
 resource "aws_ses_domain_dkim" "ses_domain_dkim" {
-  count = module.this.enabled ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   domain = join("", aws_ses_domain_identity.ses_domain.*.domain)
 }
 
 resource "aws_route53_record" "amazonses_dkim_record" {
-  count = module.this.enabled && var.verify_dkim ? 3 : 0
+  count = local.enabled && var.verify_dkim ? 3 : 0
 
   zone_id = var.zone_id
   name    = "${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}._domainkey.${var.domain}"
@@ -34,24 +43,29 @@ resource "aws_route53_record" "amazonses_dkim_record" {
   records = ["${element(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, count.index)}.dkim.amazonses.com"]
 }
 
-
-#-----------------------------------------------------------------------------------------------------------------------
-# OPTIONALLY CREATE A USER AND GROUP WITH PERMISSIONS TO SEND EMAILS FROM SES domain
-#-----------------------------------------------------------------------------------------------------------------------
-locals {
-  create_group_enabled = module.this.enabled && var.ses_group_enabled
-  create_user_enabled  = module.this.enabled && var.ses_user_enabled
-
-  ses_group_name = local.create_group_enabled ? coalesce(var.ses_group_name, module.this.id) : null
-}
-
 data "aws_iam_policy_document" "ses_policy" {
-  count = (module.this.enabled && var.ses_user_enabled) ? 1 : 0
+  count = local.enabled ? 1 : 0
 
   statement {
     actions   = var.iam_permissions
     resources = concat(aws_ses_domain_identity.ses_domain.*.arn, var.iam_allowed_resources)
   }
+}
+
+module "role" {
+  source  = "cloudposse/iam-role/aws"
+  version = "0.13.0"
+
+  enabled = ! local.create_user_enabled
+
+  policy_description = "Allow SES access"
+  role_description   = "IAM role with permissions to perform actions on SES resources"
+
+  policy_documents = [
+    join("", data.aws_iam_policy_document.ses_policy.*.json),
+  ]
+
+  context = module.this.context
 }
 
 resource "aws_iam_group" "ses_users" {
@@ -87,7 +101,6 @@ module "ses_user" {
 
   context = module.this.context
 }
-
 
 resource "aws_iam_user_policy" "sending_emails" {
   #bridgecrew:skip=BC_AWS_IAM_16:Skipping `Ensure IAM policies are attached only to groups or roles` check because this module intentionally attaches IAM policy directly to a user.
