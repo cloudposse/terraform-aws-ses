@@ -82,7 +82,7 @@ resource "aws_iam_user_group_membership" "ses_user" {
 
 module "ses_user" {
   source  = "cloudposse/iam-system-user/aws"
-  version = "0.22.5"
+  version = "0.23.0"
   enabled = local.create_user_enabled
 
   context = module.this.context
@@ -91,7 +91,7 @@ module "ses_user" {
 
 resource "aws_iam_user_policy" "sending_emails" {
   #bridgecrew:skip=BC_AWS_IAM_16:Skipping `Ensure IAM policies are attached only to groups or roles` check because this module intentionally attaches IAM policy directly to a user.
-  count = local.create_user_enabled && ! local.create_group_enabled ? 1 : 0
+  count = local.create_user_enabled && !local.create_group_enabled ? 1 : 0
 
   name   = module.this.id
   policy = join("", data.aws_iam_policy_document.ses_policy.*.json)
