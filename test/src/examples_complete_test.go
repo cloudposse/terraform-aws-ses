@@ -22,7 +22,8 @@ func RandStringRunes(n int) string {
 
 // Test the Terraform module in examples/complete using Terratest.
 func TestExamplesComplete(t *testing.T) {
-	t.Parallel()
+	// This test is not isolated enough to run in parallel
+	// t.Parallel()
 
 	testName := "ses-test-" + RandStringRunes(10)
 
@@ -31,7 +32,7 @@ func TestExamplesComplete(t *testing.T) {
 		TerraformDir: "../../examples/complete",
 		Upgrade:      true,
 		// Variables to pass to our Terraform code using -var-file options
-		VarFiles: []string{"fixtures.us-east-1.tfvars"},
+		VarFiles: []string{"fixtures.us-east-2.tfvars"},
 		Vars: map[string]interface{}{
 			"name": testName,
 		},
