@@ -85,6 +85,8 @@ module "ses_user" {
   version = "0.23.0"
   enabled = local.create_user_enabled
 
+  iam_access_key_max_age = var.iam_access_key_max_age
+
   context = module.this.context
 }
 
