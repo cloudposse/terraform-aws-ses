@@ -45,6 +45,7 @@
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain to create the SES identity for. | `string` | n/a | yes |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
+| <a name="input_iam_access_key_max_age"></a> [iam\_access\_key\_max\_age](#input\_iam\_access\_key\_max\_age) | Maximum age of IAM access key (seconds). Defaults to 30 days. Set to 0 to disable expiration. | `number` | `2592000` | no |
 | <a name="input_iam_allowed_resources"></a> [iam\_allowed\_resources](#input\_iam\_allowed\_resources) | Specifies resource ARNs that are enabled for `var.iam_permissions`. Wildcards are acceptable. | `list(string)` | `[]` | no |
 | <a name="input_iam_permissions"></a> [iam\_permissions](#input\_iam\_permissions) | Specifies permissions for the IAM user. | `list(string)` | <pre>[<br>  "ses:SendRawEmail"<br>]</pre> | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
