@@ -82,7 +82,7 @@ resource "aws_iam_user_group_membership" "ses_user" {
 
 module "ses_user" {
   source  = "cloudposse/iam-system-user/aws"
-  version = "0.23.0"
+  version = "0.23.1"
   enabled = local.create_user_enabled
 
   iam_access_key_max_age = var.iam_access_key_max_age
