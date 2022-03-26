@@ -140,7 +140,7 @@ Available targets:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ses_user"></a> [ses\_user](#module\_ses\_user) | cloudposse/iam-system-user/aws | 0.23.1 |
+| <a name="module_ses_user"></a> [ses\_user](#module\_ses\_user) | cloudposse/iam-system-user/aws | 0.23.2 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
 ## Resources
