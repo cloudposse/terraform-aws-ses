@@ -16,7 +16,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_role"></a> [role](#module\_role) | cloudposse/iam-role/aws | 0.13.0 |
+| <a name="module_role"></a> [role](#module\_role) | cloudposse/iam-role/aws | 0.16.2 |
 | <a name="module_ses_user"></a> [ses\_user](#module\_ses\_user) | cloudposse/iam-system-user/aws | 0.22.5 |
 | <a name="module_this"></a> [this](#module\_this) | cloudposse/label/null | 0.25.0 |
 
