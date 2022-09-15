@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "ses_policy" {
 
 module "role" {
   source  = "cloudposse/iam-role/aws"
-  version = "0.13.0"
+  version = "0.16.2"
 
   enabled = ! local.create_user_enabled
 
@@ -64,6 +64,8 @@ module "role" {
   policy_documents = [
     join("", data.aws_iam_policy_document.ses_policy.*.json),
   ]
+
+  principals = var.principals
 
   context = module.this.context
 }
