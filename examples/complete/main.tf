@@ -2,6 +2,10 @@ provider "aws" {
   region = var.region
 }
 
+provider "awsutils" {
+  region = var.region
+}
+
 module "vpc" {
   source  = "cloudposse/vpc/aws"
   version = "0.18.1"
