@@ -68,8 +68,20 @@ variable "ses_user_enabled" {
   default     = true
 }
 
-variable "principals" {
+variable "role_principals" {
   type        = map(list(string))
   description = "Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
   default     = {}
+}
+
+variable "role_policy_description" {
+  type        = string
+  description = "The description of the IAM policy that is visible in the IAM policy manager"
+  default     = "Allow SES access"
+}
+
+variable "role_description" {
+  type        = string
+  description = "The description of the IAM role that is visible in the IAM role manager"
+  default     = "IAM role with permissions to perform actions on SES resources"
 }

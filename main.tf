@@ -58,14 +58,14 @@ module "role" {
 
   enabled = ! local.create_user_enabled
 
-  policy_description = "Allow SES access"
-  role_description   = "IAM role with permissions to perform actions on SES resources"
+  policy_description = var.role_policy_description
+  role_description   = var.role_description
 
   policy_documents = [
     join("", data.aws_iam_policy_document.ses_policy.*.json),
   ]
 
-  principals = var.principals
+  principals = var.role_principals
 
   context = module.this.context
 }
