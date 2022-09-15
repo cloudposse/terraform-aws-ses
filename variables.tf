@@ -56,3 +56,9 @@ variable "ses_user_enabled" {
   description = "Creates user with permission to send emails from SES domain"
   default     = true
 }
+
+variable "principals" {
+  type        = map(list(string))
+  description = "Map of service name as key and a list of ARNs to allow assuming the role as value (e.g. map(`AWS`, list(`arn:aws:iam:::role/admin`)))"
+  default     = {}
+}
