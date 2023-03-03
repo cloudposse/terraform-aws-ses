@@ -46,7 +46,7 @@ locals {
 }
 
 data "aws_iam_policy_document" "ses_policy" {
-  count = (module.this.enabled && (var.ses_user_enabled || local.create_group_enabled)) ? 1 : 0
+  count = local.create_user_enabled || local.create_group_enabled ? 1 : 0
 
   statement {
     actions   = var.iam_permissions
