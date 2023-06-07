@@ -9,7 +9,7 @@ output "ses_domain_identity_verification_token" {
 }
 
 output "ses_dkim_tokens" {
-  value       = try(aws_ses_domain_dkim.ses_domain_dkim.0.dkim_tokens, "")
+  value       = try(aws_ses_domain_dkim.ses_domain_dkim[0].dkim_tokens, "")
   description = "A list of DKIM Tokens which, when added to the DNS Domain as CNAME records, allows for receivers to verify that emails were indeed authorized by the domain owner."
 }
 

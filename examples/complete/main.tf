@@ -7,12 +7,10 @@ provider "awsutils" {
 }
 
 module "vpc" {
-  source  = "cloudposse/vpc/aws"
-  version = "0.18.1"
-
-  cidr_block = "172.16.0.0/16"
-
-  context = module.this.context
+  source                  = "cloudposse/vpc/aws"
+  version                 = "2.1.0"
+  ipv4_primary_cidr_block = var.vpc_cidr_block
+  context                 = module.this.context
 }
 
 resource "aws_route53_zone" "private_dns_zone" {
