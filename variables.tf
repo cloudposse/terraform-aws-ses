@@ -21,6 +21,29 @@ variable "verify_dkim" {
   default     = false
 }
 
+variable "create_spf_record" {
+  type        = bool
+  description = "If provided the module will create an SPF record for `domain`."
+  default     = false
+}
+
+variable "custom_from_subdomain" {
+  type        = list(string)
+  description = "If provided the module will create a custom subdomain for the `From` address."
+  default     = []
+  nullable    = false
+
+  validation {
+    condition     = length(var.custom_from_subdomain) <= 1
+    error_message = "Only one custom_from_subdomain is allowed."
+  }
+
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9-]+$", var.custom_from_subdomain[0]))
+    error_message = "The custom_from_subdomain must be a valid subdomain."
+  }
+}
+
 variable "iam_permissions" {
   type        = list(string)
   description = "Specifies permissions for the IAM user."

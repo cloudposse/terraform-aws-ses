@@ -13,6 +13,11 @@ output "ses_dkim_tokens" {
   description = "A list of DKIM Tokens which, when added to the DNS Domain as CNAME records, allows for receivers to verify that emails were indeed authorized by the domain owner."
 }
 
+output "spf_record" {
+  value       = try(aws_route53_record.amazonses_spf_record[0].fqdn, "")
+  description = "The SPF record for the domain. This is a TXT record that should be added to the domain's DNS settings to allow SES to send emails on behalf of the domain."
+}
+
 output "user_name" {
   value       = module.ses_user.user_name
   description = "Normalized IAM user name."
