@@ -18,6 +18,11 @@ output "spf_record" {
   description = "The SPF record for the domain. This is a TXT record that should be added to the domain's DNS settings to allow SES to send emails on behalf of the domain."
 }
 
+output "custom_from_domain" {
+  value = try(join("", aws_ses_domain_mail_from.custom_mail_from[*].mail_from_domain))
+  description = "The custom mail FROM domain"
+}
+
 output "user_name" {
   value       = module.ses_user.user_name
   description = "Normalized IAM user name."
