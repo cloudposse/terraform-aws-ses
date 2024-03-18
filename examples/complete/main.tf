@@ -8,9 +8,9 @@ provider "awsutils" {
 
 module "vpc" {
   source  = "cloudposse/vpc/aws"
-  version = "0.18.1"
+  version = "2.1.1"
 
-  cidr_block = "172.16.0.0/16"
+  ipv4_primary_cidr_block = "172.16.0.0/16"
 
   context = module.this.context
 }
