@@ -19,7 +19,7 @@ output "spf_record" {
 }
 
 output "custom_from_domain" {
-  value = try(join("", aws_ses_domain_mail_from.custom_mail_from[*].mail_from_domain))
+  value       = try(join("", aws_ses_domain_mail_from.custom_mail_from[*].mail_from_domain))
   description = "The custom mail FROM domain"
 }
 
