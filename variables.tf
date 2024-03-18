@@ -39,7 +39,7 @@ variable "custom_from_subdomain" {
   }
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9-]+$", var.custom_from_subdomain[0]))
+    condition     = length(var.custom_from_subdomain) > 0 ? can(regex("^[a-zA-Z0-9-]+$", var.custom_from_subdomain[0])) : true
     error_message = "The custom_from_subdomain must be a valid subdomain."
   }
 }
