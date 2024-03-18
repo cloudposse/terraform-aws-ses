@@ -44,6 +44,17 @@ variable "custom_from_subdomain" {
   }
 }
 
+variable "custom_from_behavior_on_mx_failure" {
+  type        = string
+  description = "The behaviour of the custom_from_subdomain when the MX record is not found. Defaults to `UseDefaultValue`."
+  default     = "UseDefaultValue"
+
+  validation {
+    condition     = contains(["UseDefaultValue", "RejectMessage"], var.custom_from_behavior_on_mx_failure)
+    error_message = "The custom_from_behavior_on_mx_failure must be `UseDefaultValue` or `RejectMessage`."
+  }
+}
+
 variable "iam_permissions" {
   type        = list(string)
   description = "Specifies permissions for the IAM user."
