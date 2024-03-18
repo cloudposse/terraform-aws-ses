@@ -2,6 +2,10 @@
 Create SES domain identity and verify it with Route53 DNS records
 */
 
+locals {
+  custom_from_subdomain_enabled = module.this.enabled && length(var.custom_from_subdomain) > 0
+}
+
 resource "aws_ses_domain_identity" "ses_domain" {
   count = module.this.enabled ? 1 : 0
 
@@ -45,18 +49,18 @@ resource "aws_route53_record" "amazonses_spf_record" {
 }
 
 resource "aws_ses_domain_mail_from" "custom_mail_from" {
-  count                  = module.this.enabled && length(var.custom_from_subdomain) > 0 ? 1 : 0
+  count                  = local.custom_from_subdomain_enabled ? 1 : 0
   domain                 = join("", aws_ses_domain_identity.ses_domain[*].domain)
   mail_from_domain       = "${one(var.custom_from_subdomain)}.${join("", aws_ses_domain_identity.ses_domain[*].domain)}"
   behavior_on_mx_failure = var.custom_from_behavior_on_mx_failure
 }
 
 data "aws_region" "current" {
-  count = module.this.enabled && length(var.custom_from_subdomain) > 0 ? 1 : 0
+  count = local.custom_from_subdomain_enabled ? 1 : 0
 }
 
 resource "aws_route53_record" "custom_mail_from_mx" {
-  count = module.this.enabled && length(var.custom_from_subdomain) > 0 ? 1 : 0
+  count = local.custom_from_subdomain_enabled ? 1 : 0
 
   zone_id = var.zone_id
   name    = join("", aws_ses_domain_mail_from.custom_mail_from[*].mail_from_domain)
