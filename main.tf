@@ -15,13 +15,13 @@ resource "aws_route53_record" "amazonses_verification_record" {
   name    = "_amazonses.${var.domain}"
   type    = "TXT"
   ttl     = "600"
-  records = [join("", aws_ses_domain_identity.ses_domain.*.verification_token)]
+  records = [join("", aws_ses_domain_identity.ses_domain[*].verification_token)]
 }
 
 resource "aws_ses_domain_dkim" "ses_domain_dkim" {
   count = module.this.enabled ? 1 : 0
 
-  domain = join("", aws_ses_domain_identity.ses_domain.*.domain)
+  domain = join("", aws_ses_domain_identity.ses_domain[*].domain)
 }
 
 resource "aws_route53_record" "amazonses_dkim_record" {
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "ses_policy" {
 
   statement {
     actions   = var.iam_permissions
-    resources = concat(aws_ses_domain_identity.ses_domain.*.arn, var.iam_allowed_resources)
+    resources = concat(aws_ses_domain_identity.ses_domain[*].arn, var.iam_allowed_resources)
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_iam_group_policy" "ses_group_policy" {
   name  = module.this.id
   group = aws_iam_group.ses_users[0].name
 
-  policy = join("", data.aws_iam_policy_document.ses_policy.*.json)
+  policy = join("", data.aws_iam_policy_document.ses_policy[*].json)
 }
 
 resource "aws_iam_user_group_membership" "ses_user" {
@@ -93,9 +93,9 @@ module "ses_user" {
 
 resource "aws_iam_user_policy" "sending_emails" {
   #bridgecrew:skip=BC_AWS_IAM_16:Skipping `Ensure IAM policies are attached only to groups or roles` check because this module intentionally attaches IAM policy directly to a user.
-  count = local.create_user_enabled && ! local.create_group_enabled ? 1 : 0
+  count = local.create_user_enabled && !local.create_group_enabled ? 1 : 0
 
   name   = module.this.id
-  policy = join("", data.aws_iam_policy_document.ses_policy.*.json)
+  policy = join("", data.aws_iam_policy_document.ses_policy[*].json)
   user   = module.ses_user.user_name
 }
