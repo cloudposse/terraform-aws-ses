@@ -21,6 +21,40 @@ variable "verify_dkim" {
   default     = false
 }
 
+variable "create_spf_record" {
+  type        = bool
+  description = "If provided the module will create an SPF record for `domain`."
+  default     = false
+}
+
+variable "custom_from_subdomain" {
+  type        = list(string)
+  description = "If provided the module will create a custom subdomain for the `From` address."
+  default     = []
+  nullable    = false
+
+  validation {
+    condition     = length(var.custom_from_subdomain) <= 1
+    error_message = "Only one custom_from_subdomain is allowed."
+  }
+
+  validation {
+    condition     = length(var.custom_from_subdomain) > 0 ? can(regex("^[a-zA-Z0-9-]+$", var.custom_from_subdomain[0])) : true
+    error_message = "The custom_from_subdomain must be a valid subdomain."
+  }
+}
+
+variable "custom_from_behavior_on_mx_failure" {
+  type        = string
+  description = "The behaviour of the custom_from_subdomain when the MX record is not found. Defaults to `UseDefaultValue`."
+  default     = "UseDefaultValue"
+
+  validation {
+    condition     = contains(["UseDefaultValue", "RejectMessage"], var.custom_from_behavior_on_mx_failure)
+    error_message = "The custom_from_behavior_on_mx_failure must be `UseDefaultValue` or `RejectMessage`."
+  }
+}
+
 variable "iam_permissions" {
   type        = list(string)
   description = "Specifies permissions for the IAM user."
