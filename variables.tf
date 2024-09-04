@@ -78,6 +78,18 @@ variable "iam_access_key_max_age" {
   }
 }
 
+variable "iam_create_access_key" {
+  type        = bool
+  description = "Create an AWS access key which is stored in the TF state (not recommended)"
+  default     = true # for backwards compatibility
+}
+
+variable "iam_create_ses_smtp_password" {
+  type        = bool
+  description = "Create an AWS SES SMTP password which is stored in the TF state (not recommended)"
+  default     = true # for backwards compatibility
+}
+
 variable "ses_group_enabled" {
   type        = bool
   description = "Creates a group with permission to send emails from SES domain"
