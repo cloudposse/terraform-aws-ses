@@ -55,6 +55,12 @@ variable "custom_from_behavior_on_mx_failure" {
   }
 }
 
+variable "custom_from_dns_record_enabled" {
+  type        = bool
+  description = "If enabled the module will create a Route53 DNS record for the `From` address subdomain."
+  default     = true
+}
+
 variable "iam_permissions" {
   type        = list(string)
   description = "Specifies permissions for the IAM user."

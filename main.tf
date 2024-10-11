@@ -60,7 +60,7 @@ data "aws_region" "current" {
 }
 
 resource "aws_route53_record" "custom_mail_from_mx" {
-  count = local.custom_from_subdomain_enabled ? 1 : 0
+  count = local.custom_from_subdomain_enabled && custom_from_dns_record_enabled ? 1 : 0
 
   zone_id = var.zone_id
   name    = join("", aws_ses_domain_mail_from.custom_mail_from[*].mail_from_domain)
