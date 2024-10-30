@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"math/rand"
 	"os/exec"
 	"strings"
@@ -65,5 +66,5 @@ func TestExamplesComplete(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	userName := terraform.Output(t, terraformOptions, "user_name")
 	// Verify we're getting back the outputs we expect
-	assert.Equal(t, "eg-test-ses", userName)
+	assert.Equal(t, fmt.Sprintf("eg-test-ses-%s", platform), userName)
 }
