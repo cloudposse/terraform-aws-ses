@@ -2,6 +2,8 @@ package test
 
 import (
 	"math/rand"
+	"os/exec"
+	"strings"
 	"testing"
 	"time"
 
@@ -10,6 +12,20 @@ import (
 )
 
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyz1234567890")
+
+func detectPlatform() string {
+	cmd := exec.Command("terraform", "--version")
+	out, _ := cmd.CombinedOutput()
+	platform := ""
+	if strings.Contains(string(out), "Terraform") {
+		platform = "tf"
+	} else if strings.Contains(string(out), "OpenTofu") {
+		platform = "tofu"
+	} else {
+		platform = "unknown"
+	}
+	return platform
+}
 
 func RandStringRunes(n int) string {
 	rand.Seed(time.Now().UnixNano())
@@ -26,7 +42,8 @@ func TestExamplesComplete(t *testing.T) {
 	// t.Parallel()
 
 	testName := "ses-test-" + RandStringRunes(10)
-
+	platform := detectPlatform()
+	attributes := []string{platform}
 	terraformOptions := &terraform.Options{
 		// The path to where our Terraform code is located
 		TerraformDir: "../../examples/complete",
@@ -34,7 +51,8 @@ func TestExamplesComplete(t *testing.T) {
 		// Variables to pass to our Terraform code using -var-file options
 		VarFiles: []string{"fixtures.us-east-2.tfvars"},
 		Vars: map[string]interface{}{
-			"name": testName,
+			"name":       testName,
+			"attributes": attributes,
 		},
 	}
 
