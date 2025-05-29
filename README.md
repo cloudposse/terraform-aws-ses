@@ -3,7 +3,7 @@
 <!-- markdownlint-disable -->
 <a href="https://cpco.io/homepage"><img src="https://github.com/cloudposse/terraform-aws-ses/blob/main/.github/banner.png?raw=true" alt="Project Banner"/></a><br/>
     <p align="right">
-<a href="https://github.com/cloudposse/terraform-aws-ses/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-ses.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-ses/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-ses.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
+<a href="https://github.com/cloudposse/terraform-aws-ses/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-ses.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-ses/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-ses.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://cloudposse.com/slack"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
 <!-- markdownlint-restore -->
 
 <!--
@@ -71,18 +71,6 @@ SES availability in regions can be checked in [latest AWS General Reference](htt
 
 
 
-<!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
-```
-<!-- markdownlint-restore -->
 <!-- markdownlint-disable -->
 ## Requirements
 
@@ -178,6 +166,11 @@ Available targets:
 | <a name="output_user_name"></a> [user\_name](#output\_user\_name) | Normalized IAM user name. |
 | <a name="output_user_unique_id"></a> [user\_unique\_id](#output\_user\_unique\_id) | The unique ID assigned by AWS. |
 <!-- markdownlint-restore -->
+
+
+
+
+
 
 
 
