@@ -32,7 +32,7 @@ badges:
     url: https://github.com/cloudposse/terraform-aws-ses/commits
   - name: Slack Community
     image: https://slack.cloudposse.com/for-the-badge.svg
-    url: https://slack.cloudposse.com
+    url: https://cloudposse.com/slack
 description: |-
   Terraform module to provision Simple Email Service on AWS.
 # How to use this project
@@ -57,8 +57,5 @@ usage: |-
 #  Here's how to get started...
 
 # Other files to include in this README from the project folder
-include:
-  - "docs/targets.md"
-  - "docs/terraform.md"
-# Contributors to this project
+include: []
 contributors: []
