@@ -73,15 +73,17 @@ variable "iam_allowed_resources" {
   default     = []
 }
 
-variable "iam_access_key_max_age" {
-  type        = number
-  description = "Maximum age of IAM access key (seconds). Defaults to 30 days. Set to 0 to disable expiration."
-  default     = 2592000
 
-  validation {
-    condition     = var.iam_access_key_max_age >= 0
-    error_message = "The iam_access_key_max_age must be 0 (disabled) or greater."
-  }
+variable "iam_create_access_key" {
+  type        = bool
+  description = "Create an AWS access key which is stored in the TF state (not recommended)"
+  default     = true # for backwards compatibility
+}
+
+variable "iam_create_ses_smtp_password" {
+  type        = bool
+  description = "Create an AWS SES SMTP password which is stored in the TF state (not recommended)"
+  default     = true # for backwards compatibility
 }
 
 variable "ses_group_enabled" {
